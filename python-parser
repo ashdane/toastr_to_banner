@@ -1,0 +1,31 @@
+from bs4 import BeautifulSoup
+import re
+
+def HTML_parser(html_file_path):
+    with open(html_file_path, 'r+', encoding='utf-8') as file:
+        html_file_content = file.read()
+
+        soup = BeautifulSoup(html_file_content, 'html.parser')
+        all_buttons = soup.find_all('button')
+
+        for button in all_buttons:
+            click_attribute = button.attrs.get('(click)') 
+            if click_attribute:
+                button_text = button.text.strip()
+                to_replace = f'''<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    {button_text}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>'''
+                if re.search(r'cosuccess\(\)', click_attribute):  
+                    button.replace_with(BeautifulSoup(to_replace, 'html.parser'))
+                if re.search(r'showerror\(\)', click_attribute):
+                    button.replace_with(BeautifulSoup(to_replace, 'html.parser'))
+        file.seek(0)
+        file.write(str(soup))
+
+
+html_file_path = 'C:/Users/Daniel Ashish/toastr_to_banner/src/app/toastr-table/toastr-table.component.html'
+HTML_parser(html_file_path)
+with open(html_file_path, 'r', encoding='utf-8') as f:
+    html_file_content = f.read()
+print(html_file_content)
