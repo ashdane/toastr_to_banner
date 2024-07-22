@@ -16,6 +16,7 @@ def HTML_parser(html_file_path):
                                     {button_text}
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>'''
+                //the user may add and tune the conditions as required in the use-case
                 if re.search(r'cosuccess\(\)', click_attribute):  
                     button.replace_with(BeautifulSoup(to_replace, 'html.parser'))
                 if re.search(r'showerror\(\)', click_attribute):
