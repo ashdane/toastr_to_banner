@@ -12,6 +12,7 @@ def HTML_parser(html_file_path):
             click_attribute = button.attrs.get('(click)') 
             if click_attribute:
                 button_text = button.text.strip()
+                //generic code for a banner notification (can and should be edited for better (and more user-friendly) output.
                 to_replace = f'''<div class="alert alert-warning alert-dismissible fade show" role="alert">
                                     {button_text}
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
