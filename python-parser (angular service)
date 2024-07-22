@@ -1,0 +1,23 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class FlaskApiService {
+  // URL which allows GET(and/or)POST to happen
+  private apiurl = "http://127.0.0.1:5000/api/execute-script";
+
+  constructor(private http: HttpClient)
+   {
+
+    }
+
+   getData() {
+    return this.http.get<any>(this.apiurl);
+   }
+
+   postData(data: any) {
+    return this.http.post<any>(this.apiurl, data);
+   }
+}
