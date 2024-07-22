@@ -1,0 +1,31 @@
+import { Component } from '@angular/core';
+// lifecycle component --> OnInit
+import { OnInit } from '@angular/core';
+import { FlaskApiService } from '../flask-api.service';
+@Component({
+  selector: 'app-python-parser',
+  standalone: true,
+  imports: [],
+  templateUrl: './python-parser.component.html',
+  styleUrl: './python-parser.component.css'
+})
+export class PythonParserComponent implements OnInit {
+  data: any;
+   constructor(private flaskapiService: FlaskApiService) {}
+
+   ngOnInit(): void {
+    this.fetchData();
+  }
+
+  fetchData(): void {
+    // Note: .subscribe() is deprecated as of Angular 18. However, I am yet to figure the proper alternative. (Requires correction)
+    this.flaskapiService.getData().subscribe(  
+      (response: any) => {
+        this.data = response.result; 
+      },
+      (error: any) => {
+        console.error('Error:', error);
+      }
+    );
+  }
+}
